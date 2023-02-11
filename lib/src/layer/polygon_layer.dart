@@ -30,24 +30,26 @@ class Polygon {
   final TextStyle labelStyle;
   final PolygonLabelPlacement labelPlacement;
   final bool rotateLabel;
+  final VoidCallback onTap;
 
-  Polygon({
-    required this.points,
-    this.key,
-    this.holePointsList,
-    this.color = const Color(0xFF00FF00),
-    this.borderStrokeWidth = 0.0,
-    this.borderColor = const Color(0xFFFFFF00),
-    this.disableHolesBorder = false,
-    this.isDotted = false,
-    this.isFilled = false,
-    this.strokeCap = StrokeCap.round,
-    this.strokeJoin = StrokeJoin.round,
-    this.label,
-    this.labelStyle = const TextStyle(),
-    this.labelPlacement = PolygonLabelPlacement.centroid,
-    this.rotateLabel = false,
-  }) : holeOffsetsList = null == holePointsList || holePointsList.isEmpty
+  Polygon(
+      {required this.points,
+      this.key,
+      this.holePointsList,
+      this.color = const Color(0xFF00FF00),
+      this.borderStrokeWidth = 0.0,
+      this.borderColor = const Color(0xFFFFFF00),
+      this.disableHolesBorder = false,
+      this.isDotted = false,
+      this.isFilled = false,
+      this.strokeCap = StrokeCap.round,
+      this.strokeJoin = StrokeJoin.round,
+      this.label,
+      this.labelStyle = const TextStyle(),
+      this.labelPlacement = PolygonLabelPlacement.centroid,
+      this.rotateLabel = false,
+      required this.onTap})
+      : holeOffsetsList = null == holePointsList || holePointsList.isEmpty
             ? null
             : List.generate(holePointsList.length, (_) => []);
 }
@@ -104,10 +106,13 @@ class PolygonLayer extends StatelessWidget {
           }
 
           polygonsWidget.add(
-            CustomPaint(
-              key: polygon.key,
-              painter: PolygonPainter(polygon, map.rotationRad),
-              size: size,
+            GestureDetector(
+              onTap: polygon.onTap,
+              child: CustomPaint(
+                key: polygon.key,
+                painter: PolygonPainter(polygon, map.rotationRad),
+                size: size,
+              ),
             ),
           );
         }
