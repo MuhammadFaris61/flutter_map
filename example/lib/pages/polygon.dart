@@ -77,14 +77,14 @@ class PolygonPage extends StatelessWidget {
                       points: notFilledPoints,
                       isFilled: false, // By default it's false
                       borderColor: Colors.red,
-                      borderStrokeWidth: 4,
+                      borderStrokeWidth: 4, onTap: () {  },
                     ),
                     Polygon(
                       points: filledPoints,
                       isFilled: true,
                       color: Colors.purple,
                       borderColor: Colors.purple,
-                      borderStrokeWidth: 4,
+                      borderStrokeWidth: 4, onTap: () {  },
                     ),
                     Polygon(
                       points: notFilledDotedPoints,

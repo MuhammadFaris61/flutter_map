@@ -106,14 +106,15 @@ class PolygonLayer extends StatelessWidget {
           }
 
           polygonsWidget.add(
-            GestureDetector(
-              onTap: polygon.onTap,
-              child: CustomPaint(
+
+         GestureDetector(onTap: (){debugPrint('Clicked on polygon piant');},child:
+             CustomPaint(
                 key: polygon.key,
                 painter: PolygonPainter(polygon, map.rotationRad),
-                size: size,
-              ),
-            ),
+                // size: size,
+              ),),
+
+
           );
         }
 
@@ -242,7 +243,8 @@ class PolygonPainter extends CustomPainter {
       _paintBorder(canvas);
 
       canvas.restore();
-    } else {
+    }
+    else {
       canvas.clipRect(rect);
       paint
         ..style =
@@ -269,6 +271,11 @@ class PolygonPainter extends CustomPainter {
     }
   }
 
+@override
+  bool? hitTest(Offset position) {
+    debugPrint("Clicked on geofence");
+    return super.hitTest(position);
+  }
   @override
   bool shouldRepaint(PolygonPainter oldDelegate) => false;
 
